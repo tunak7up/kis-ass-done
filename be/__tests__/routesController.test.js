@@ -1,0 +1,202 @@
+const RoutesController = require('../controllers/routesController');
+const RoutesService = require('../services/routesServices');
+const { mockRegions, mockAreas, mockNpps, mockRoutes } = require('./setup');
+
+// Mock service
+jest.mock('../services/routesServices');
+
+describe('RoutesController', () => {
+  let mockReq;
+  let mockRes;
+
+  beforeEach(() => {
+    mockReq = {
+      params: {},
+      body: {},
+    };
+
+    mockRes = {
+      status: jest.fn().mockReturnThis(),
+      json: jest.fn().mockReturnThis(),
+    };
+
+    jest.clearAllMocks();
+  });
+
+  // ===== GET REGIONS TESTS =====
+  describe('getRegions', () => {
+    test('phải trả về status 200 và danh sách regions', async () => {
+      RoutesService.getRegions.mockResolvedValue(mockRegions);
+
+      await RoutesController.getRegions(mockReq, mockRes);
+
+      expect(mockRes.status).toHaveBeenCalledWith(200);
+      expect(mockRes.json).toHaveBeenCalledWith(mockRegions);
+    });
+
+    test('phải gọi RoutesService.getRegions', async () => {
+      RoutesService.getRegions.mockResolvedValue(mockRegions);
+
+      await RoutesController.getRegions(mockReq, mockRes);
+
+      expect(RoutesService.getRegions).toHaveBeenCalled();
+    });
+
+    test('phải trả về status 500 khi service lỗi', async () => {
+      const error = new Error('Database error');
+      RoutesService.getRegions.mockRejectedValue(error);
+
+      await RoutesController.getRegions(mockReq, mockRes);
+
+      expect(mockRes.status).toHaveBeenCalledWith(500);
+      expect(mockRes.json).toHaveBeenCalledWith(
+        expect.objectContaining({
+          error: 'Database error',
+          message: 'Lỗi khi lấy danh sách regions',
+        })
+      );
+    });
+  });
+
+  // ===== GET AREAS TESTS =====
+  describe('getAreas', () => {
+    test('phải trả về status 200 và danh sách areas', async () => {
+      mockReq.params.regionId = 1;
+      const expectedAreas = mockAreas.filter(a => a.region_id === 1);
+      RoutesService.getAreas.mockResolvedValue(expectedAreas);
+
+      await RoutesController.getAreas(mockReq, mockRes);
+
+      expect(mockRes.status).toHaveBeenCalledWith(200);
+      expect(mockRes.json).toHaveBeenCalledWith(expectedAreas);
+      expect(RoutesService.getAreas).toHaveBeenCalledWith(1);
+    });
+
+    test('phải trả về 400 nếu regionId missing', async () => {
+      mockReq.params.regionId = undefined;
+
+      await RoutesController.getAreas(mockReq, mockRes);
+
+      expect(mockRes.status).toHaveBeenCalledWith(400);
+      expect(mockRes.json).toHaveBeenCalledWith(
+        expect.objectContaining({
+          error: 'regionId là bắt buộc',
+        })
+      );
+    });
+
+    test('phải trả về status 500 khi service lỗi', async () => {
+      mockReq.params.regionId = 1;
+      const error = new Error('Query failed');
+      RoutesService.getAreas.mockRejectedValue(error);
+
+      await RoutesController.getAreas(mockReq, mockRes);
+
+      expect(mockRes.status).toHaveBeenCalledWith(500);
+      expect(mockRes.json).toHaveBeenCalledWith(
+        expect.objectContaining({
+          error: 'Query failed',
+          message: 'Lỗi khi lấy danh sách areas',
+        })
+      );
+    });
+  });
+
+  // ===== GET NPPS TESTS =====
+  describe('getNpps', () => {
+    test('phải trả về status 200 và danh sách npps', async () => {
+      mockReq.params.areaId = 1;
+      const expectedNpps = mockNpps.filter(n => n.area_id === 1);
+      RoutesService.getNpps.mockResolvedValue(expectedNpps);
+
+      await RoutesController.getNpps(mockReq, mockRes);
+
+      expect(mockRes.status).toHaveBeenCalledWith(200);
+      expect(mockRes.json).toHaveBeenCalledWith(expectedNpps);
+      expect(RoutesService.getNpps).toHaveBeenCalledWith(1);
+    });
+
+    test('phải trả về 400 nếu areaId missing', async () => {
+      mockReq.params.areaId = undefined;
+
+      await RoutesController.getNpps(mockReq, mockRes);
+
+      expect(mockRes.status).toHaveBeenCalledWith(400);
+      expect(mockRes.json).toHaveBeenCalledWith(
+        expect.objectContaining({
+          error: 'areaId là bắt buộc',
+        })
+      );
+    });
+
+    test('phải trả về status 500 khi service lỗi', async () => {
+      mockReq.params.areaId = 1;
+      const error = new Error('Database error');
+      RoutesService.getNpps.mockRejectedValue(error);
+
+      await RoutesController.getNpps(mockReq, mockRes);
+
+      expect(mockRes.status).toHaveBeenCalledWith(500);
+      expect(mockRes.json).toHaveBeenCalledWith(
+        expect.objectContaining({
+          error: 'Database error',
+          message: 'Lỗi khi lấy danh sách npps',
+        })
+      );
+    });
+  });
+
+  // ===== GET ROUTES TESTS =====
+  describe('getRoutes', () => {
+    test('phải trả về status 200 và danh sách routes', async () => {
+      mockReq.params.nppId = 1;
+      const expectedRoutes = mockRoutes.filter(r => r.npp_id === 1);
+      RoutesService.getRoutes.mockResolvedValue(expectedRoutes);
+
+      await RoutesController.getRoutes(mockReq, mockRes);
+
+      expect(mockRes.status).toHaveBeenCalledWith(200);
+      expect(mockRes.json).toHaveBeenCalledWith(expectedRoutes);
+      expect(RoutesService.getRoutes).toHaveBeenCalledWith(1);
+    });
+
+    test('phải trả về 400 nếu nppId missing', async () => {
+      mockReq.params.nppId = undefined;
+
+      await RoutesController.getRoutes(mockReq, mockRes);
+
+      expect(mockRes.status).toHaveBeenCalledWith(400);
+      expect(mockRes.json).toHaveBeenCalledWith(
+        expect.objectContaining({
+          error: 'nppId là bắt buộc',
+        })
+      );
+    });
+
+    test('phải trả về status 500 khi service lỗi', async () => {
+      mockReq.params.nppId = 1;
+      const error = new Error('Connection timeout');
+      RoutesService.getRoutes.mockRejectedValue(error);
+
+      await RoutesController.getRoutes(mockReq, mockRes);
+
+      expect(mockRes.status).toHaveBeenCalledWith(500);
+      expect(mockRes.json).toHaveBeenCalledWith(
+        expect.objectContaining({
+          error: 'Connection timeout',
+          message: 'Lỗi khi lấy danh sách routes',
+        })
+      );
+    });
+
+    test('phải gọi RoutesService.getRoutes với nppId chính xác', async () => {
+      mockReq.params.nppId = 5;
+      RoutesService.getRoutes.mockResolvedValue([]);
+
+      await RoutesController.getRoutes(mockReq, mockRes);
+
+      expect(RoutesService.getRoutes).toHaveBeenCalledWith(5);
+    });
+  });
+
+});
