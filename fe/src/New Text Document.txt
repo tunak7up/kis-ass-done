@@ -1,0 +1,9 @@
+Học được cách dùng .map để import data.json vào 2 component customizedTable và stickyTable
+Tìm hiểu về useState, useMemo của React  
+Sử dụng .slice để điều chỉnh số lượng hàng tối đa hiển thị trên 1 trang 
+Tạo array lưu số ngày cụ thể trong tháng lấy từ data.json và 1 row để hiện thứ tương ứng(T2 T3 ... CN) để hiển thị trên tablehead của stickyTable
+Căn chỉnh TableHead, TableCell của cả 2 component để các rows ngang với nhau 
+Học được cách sử dụng câu điều kiện trong TableCell để sửa CSS của các td cụ thể (các ngày T7 CN) 
+Điều chỉnh lại App.css vì đang bị lỗi kích thước khi mở web bằng thiết bị có độ phân giải khác 
+
+Bài tập được giao: đã làm được 80%, đang học cách để rowSpan của các TableCell section và kpi tự tăng lên với điều kiện cụ thể để không bị hiển thị trùng lặp khi render các row lên màn hình. Chỉnh sửa lại CSS do đang bị lỗi kích thước 
