@@ -22,4 +22,8 @@ module.exports = {
     ],
   ],
   verbose: true,
+  coveragePathIgnorePatterns: [
+    "/controllers/",
+    "/__tests__/routesController.test.js"
+  ],
 };

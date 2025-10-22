@@ -1,9 +1,9 @@
-const sequelize = require('../config/database');
+const sequelize = require('../../config/database');
 // const { DataTypes } = require('sequelize');
-const {Region} = require('./region');
-const {Area} = require('./area');
-const {Npp} = require('./npp');
-const {Route} = require('./route');
+const {Region} = require('./models/region');
+const {Area} = require('./models/area');
+const {Npp} = require('./models/npp');
+const {Route} = require('./models/route');
 
 // Define relationships
 Area.belongsTo(Region, { foreignKey: 'region_id' });

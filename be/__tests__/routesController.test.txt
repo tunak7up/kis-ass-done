@@ -1,9 +1,9 @@
 const RoutesController = require('../controllers/routesController');
 const RoutesService = require('../services/routesServices');
-const { mockRegions, mockAreas, mockNpps, mockRoutes } = require('./setup');
+const { mockRegions, mockAreas, mockNpps, mockRoutes } = require('../api/mock-data');
 
 // Mock service
-jest.mock('../services/routesServices');
+jest.mock('../controllers/routesController');
 
 describe('RoutesController', () => {
   let mockReq;

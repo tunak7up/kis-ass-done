@@ -2,8 +2,7 @@
 const mockRegions = [
   { region_id: 1, region_name: 'Miền Bắc' },
   { region_id: 2, region_name: 'Miền Trung' },
-  { region_id: 3, region_name: 'Miền Nam' },
-  { region_id: null, region_name: 'blabla'}
+  { region_id: 3, region_name: 'Miền Nam' }
 ];
 
 const mockAreas = [
@@ -11,7 +10,6 @@ const mockAreas = [
   { area_id: 2, area_name: 'Cầu Giấy', region_id: 1 },
   { area_id: 3, area_name: 'Hoàng Mai', region_id: 1 },
   { area_id: 6, area_name: 'Đà Nẵng', region_id: 2 },
-  { area_id: 7, area_name: 'blabla', region_id: 5 },
 ];
 
 const mockNpps = [

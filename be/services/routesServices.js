@@ -1,4 +1,4 @@
-const { Region, Area, Npp, Route } = require('../models');
+const { Region, Area, Npp, Route } = require('../api/sequelize');
 
 class RoutesService {
   // Lấy danh sách Regions
@@ -15,6 +15,11 @@ class RoutesService {
 
   // Lấy danh sách Areas theo Region ID
   static async getAreas(regionId) {
+
+    if(!regionId || isNaN(Number(regionId))) {
+      throw new Error('regionId không được để trống');
+    }
+
     try {
       const areas = await Area.findAll({
         where: { region_id: regionId },
@@ -27,7 +32,12 @@ class RoutesService {
   }
 
   // Lấy danh sách Npps theo Area ID
-  static async getNpps(areaId) {
+  static async getNpps(areaId ) {
+
+    if(!areaId || isNaN(Number(areaId))) {
+      throw new Error('areaId không được để trống');
+    }
+
     try {
       const npps = await Npp.findAll({
         where: { area_id: areaId },
@@ -41,6 +51,9 @@ class RoutesService {
 
   // Lấy danh sách Routes theo NPP ID
   static async getRoutes(nppId) {
+    if(!nppId || isNaN(Number(nppId))) {
+      throw new Error('nppId không được để trống');
+    }
     try {
       const routes = await Route.findAll({
         where: { npp_id: nppId },
