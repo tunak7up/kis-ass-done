@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1761107966607" clover="3.2.0">
-  <project timestamp="1761107966607" name="All files">
+<coverage generated="1761108424482" clover="3.2.0">
+  <project timestamp="1761108424482" name="All files">
     <metrics statements="24" coveredstatements="24" conditionals="12" coveredconditionals="12" methods="4" coveredmethods="4" elements="40" coveredelements="40" complexity="0" loc="24" ncloc="24" packages="1" files="1" classes="1"/>
     <file name="routesServices.js" path="D:\00-Tuan\gitclone\kis-ass\be\services\routesServices.js">
       <metrics statements="24" coveredstatements="24" conditionals="12" coveredconditionals="12" methods="4" coveredmethods="4"/>

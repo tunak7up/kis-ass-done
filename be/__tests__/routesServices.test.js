@@ -111,9 +111,7 @@ describe('RoutesService - Complete Unit Tests', () => {
     });
   });
 
-  // ================================================================
-  // TEST getAreas(regionId)
-  // ================================================================
+
   describe('getAreas(regionId)', () => {
     
     describe('Happy Path', () => {
@@ -256,9 +254,7 @@ describe('RoutesService - Complete Unit Tests', () => {
     });
   });
 
-  // ================================================================
-  // TEST getNpps(areaId)
-  // ================================================================
+
   describe('getNpps(areaId)', () => {
     
     describe('Happy Path', () => {
@@ -390,9 +386,7 @@ describe('RoutesService - Complete Unit Tests', () => {
     });
   });
 
-  // ================================================================
-  // TEST getRoutes(nppId)
-  // ================================================================
+
   describe('getRoutes(nppId)', () => {
     
     describe('Happy Path', () => {
