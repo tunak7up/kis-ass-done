@@ -1,5 +1,6 @@
 const sequelize = require('../../../config/database');
-const { DataTypes } = require('sequelize');
+const { DataTypes, Model } = require('sequelize');
+const {Area} = require('./area');
 
 const Npp = sequelize.define('Npp', {
   npp_id: {
@@ -14,6 +15,10 @@ const Npp = sequelize.define('Npp', {
   area_id: {
     type: DataTypes.INTEGER,
     allowNull: false,
+    references: {
+      model: Area,
+      key: 'area_id'
+    },
   },
 }, {
   tableName: 'npp',
