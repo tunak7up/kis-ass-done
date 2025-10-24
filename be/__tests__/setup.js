@@ -3,7 +3,6 @@ const mockRegions = [
   { region_id: 1, region_name: 'Miền Bắc' },
   { region_id: 2, region_name: 'Miền Trung' },
   { region_id: 3, region_name: 'Miền Nam' },
-  { region_id: null, region_name: 'blabla'}
 ];
 
 const mockAreas = [

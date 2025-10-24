@@ -1,23 +1,23 @@
-const sequelize = require('../../../config/database');
+const sequelize = require('../../../../config/database');
 const { DataTypes } = require('sequelize');
 
-const Area = sequelize.define('Area', {
-  area_id: {
+const Npp = sequelize.define('Npp', {
+  npp_id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true,
   },
-  area_name: {
+  npp_name: {
     type: DataTypes.STRING(255),
     allowNull: false,
   },
-  region_id: {
+  area_id: {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
 }, {
-  tableName: 'area',
+  tableName: 'npp',
   timestamps: false,
 });
 
-module.exports = {Area};
+module.exports = {Npp};

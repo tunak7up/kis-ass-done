@@ -6,19 +6,17 @@ const routesRouter = require('./routes/routes');
 
 const app = express();
 
-// Middleware
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // Routes
 app.use('/api', routesRouter);
 
-// Test route
 app.get('/', (req, res) => {
   res.json({ message: 'Server đang chạy!' });
 });
 
-// Sync database và start server
 const PORT = process.env.PORT || 5000;
 
 sequelize.sync({ alter: false }).then(() => {
