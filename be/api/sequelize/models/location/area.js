@@ -1,7 +1,9 @@
 const sequelize = require('../../../../config/database');
 const { DataTypes } = require('sequelize');
+const {Region} = require('./region')
 
-const Area = sequelize.define('Area', {
+const Area = sequelize.define('Area', 
+{
   area_id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -14,8 +16,13 @@ const Area = sequelize.define('Area', {
   region_id: {
     type: DataTypes.INTEGER,
     allowNull: false,
+    references: {
+      model: Region,
+      key: 'region_id'
+    },
   },
-}, {
+},
+ {
   tableName: 'area',
   timestamps: false,
 });

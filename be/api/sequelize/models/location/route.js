@@ -1,5 +1,6 @@
 const sequelize = require('../../../../config/database');
 const { DataTypes } = require('sequelize');
+const {Npp} = require('./npp')
 
 const Route = sequelize.define('Route', {
   route_id: {
@@ -14,6 +15,10 @@ const Route = sequelize.define('Route', {
   npp_id: {
     type: DataTypes.INTEGER,
     allowNull: false,
+    references: {
+      model: Npp, 
+      key: 'npp_id'
+    },
   },
 }, {
   tableName: 'route',
