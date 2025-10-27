@@ -1,25 +1,26 @@
-const sequelize = require('../../../../config/database');
-const {DataTypes, Model} = require('sequelize'); 
-const {Content} = require('./content')
+const dbInstance = require("../../get-db-instance").getDbInstance();
+const { DataTypes } = require("sequelize");
+const Content = require("./content");
 
-class Kpi extends Model {}
-
-Kpi.init({
+const Kpi = dbInstance.define(
+  "Kpi",
+  {
     kpi_id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
-    kpi_name: { type: DataTypes.STRING, allowNull: false },
-    monthly_cumulative_calculation_type: { type: DataTypes.TEXT, allowNull: false },
+    kpi_name: { type: DataTypes.STRING, allowNull: false }, //1 kpi có nhiều detail_name
     content_id: {
-        type: DataTypes.INTEGER, allowNull: false,
-        references: {
-            model: Content,
-            key: 'content_id'
-        },
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: Content,
+        key: "content_id",
+      },
     },
-}, {
-    sequelize,
-    tableName: 'kpi',
-    timestamps: true,
+  },
+  {
+    tableName: "kpi",
+    timestamps: false,
     freezeTableName: true,
-});
+  }
+);
 
 module.exports = Kpi;

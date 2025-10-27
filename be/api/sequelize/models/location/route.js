@@ -1,8 +1,8 @@
-const sequelize = require('../../../../config/database');
+const dbInstance = require("../../get-db-instance").getDbInstance();
 const { DataTypes } = require('sequelize');
-const {Npp} = require('./npp')
+const Npp = require('./npp')
 
-const Route = sequelize.define('Route', {
+const Route = dbInstance.define("Route", {
   route_id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -25,4 +25,4 @@ const Route = sequelize.define('Route', {
   timestamps: false,
 });
 
-module.exports = {Route};
+module.exports = Route;

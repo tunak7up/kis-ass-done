@@ -1,16 +1,21 @@
-const sequelize = require('../../../../config/database');
-const {DataTypes, Model} = require('sequelize'); 
+const dbInstance = require("../../get-db-instance").getDbInstance();
+const { DataTypes } = require("sequelize");
 
-class Content extends Model {}
-
-Content.init({
-    content_id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
+const Content = dbInstance.define(
+  "Content",
+  {
+    content_id: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
+    },
     content_name: { type: DataTypes.STRING, allowNull: false },
-}, {
-    sequelize,
-    tableName: 'content',
-    timestamps: true,
+  },
+  {
+    tableName: "content",
+    timestamps: false,
     freezeTableName: true,
-});
+  }
+);
 
 module.exports = Content;
