@@ -13,6 +13,7 @@ Area.hasMany(Npp, { foreignKey: "area_id" });
 Route.belongsTo(Npp, { foreignKey: "npp_id" });
 Npp.hasMany(Route, { foreignKey: "npp_id" });
 
+
 module.exports = {
   Region,
   Area,

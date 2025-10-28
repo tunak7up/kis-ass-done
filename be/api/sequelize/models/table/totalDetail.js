@@ -10,10 +10,16 @@ const TotalDetail = dbInstance.define(
       autoIncrement: true,
       primaryKey: true,
     },
-    totalDetail_name: { type: DataTypes.STRING, allowNull: false }, //1 kpi có nhiều detail_name
-    formula: {
+    totalDetail_name: { type: DataTypes.STRING, allowNull: false },
+    total_formula: {
       type: DataTypes.TEXT,
-      allowNull: false,
+      allowNull: true,
+      comment: "Công thức tổng hợp tháng hoặc route",
+    },
+    day_formula: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+      comment: "Công thức tính giá trị mỗi ngày",
     },
     kpi_id: {
       type: DataTypes.INTEGER,

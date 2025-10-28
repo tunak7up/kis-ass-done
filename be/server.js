@@ -1,32 +1,27 @@
 const dbInstance = require("./api/sequelize/get-db-instance").getDbInstance();
-const {sequelize} = require('./api/sequelize/index');
-const {Kpi, TotalDetail} = require('./api/sequelize/index');
+const { sequelize } = require('./api/sequelize/index');
+const { Content, Kpi, TotalDetail, Detail } = require('./api/sequelize/index');
+const { Sequelize, Op} = require('sequelize');
 
 async function test() {
-  await sequelize.sync({ alter: true });
-  try {
-      await TotalDetail.bulkCreate([
-      {
-        totalDetail_name: "Kế hoạch VT tháng",
-        formula: "SUM(detail_value WHERE MONTH(detail_date)=MONTH(CURRENT_DATE()) AND kpi_id = this.kpi_id)",
-        kpi_id: 3,
+  const contents = await Content.findAndCountAll({
+    include: {
+      model: Kpi,
+      where: {
+        [Op.or]: [{kpi_id: 1}, {kpi_id: 2}]
+        
       },
-      {
-        totalDetail_name: "Viếng thăm thực tế tháng",
-        formula: "SUM(detail_value WHERE MONTH(detail_date)=MONTH(CURRENT_DATE()) AND kpi_id = this.kpi_id)",
-        kpi_id: 4,
-      },
-      {
-        totalDetail_name: "% VT/KH",
-        formula: "(value(totalDetail_name='Viếng thăm thực tế tháng') / value(totalDetail_name='Kế hoạch VT tháng')) * 100",
-        kpi_id: 5,
-      },
-    ]);
-
-    console.log("✅ Thêm KPI thành công");
-  } catch (err) {
-    console.error("❌ Lỗi:", err);
-    process.exit(1);
-  }
+      include: {
+        model: TotalDetail,
+        separate: true,
+        limit: 5,
+        include: {
+          model: Detail,
+          limit: 5
+        }
+      }
+    },
+  });
+  console.log(JSON.stringify(contents, null, 2));
 }
 test();
