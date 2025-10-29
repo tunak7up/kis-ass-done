@@ -89,3 +89,45 @@ html {
 .twoTable { 
   margin-top: 5rem;
 }
+
+.year-month-picker {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  border-radius: 10px;
+  width: 200px;
+}
+
+.year-month-picker select {
+  padding: 8px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background-color: white;
+  color: #334155;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.year-month-picker select:hover {
+  border-color: #3b82f6; /* xanh dương nhẹ */
+  box-shadow: 0 0 0 2px rgba(59,130,246,0.2);
+}
+
+.year-month-picker select:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37,99,235,0.3);
+}
+
+@media (max-width: 500px) {
+  .year-month-picker {
+    flex-direction: column;
+    width: 100%;
+  }
+  .year-month-picker select {
+    width: 100%;
+  }
+}

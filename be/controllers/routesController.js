@@ -1,4 +1,4 @@
-const RoutesService = require('../services/routesServices');
+const RoutesService = require("../services/routesServices");
 
 class RoutesController {
   // GET /api/regions
@@ -8,9 +8,9 @@ class RoutesController {
       res.status(200).json(regions);
     } catch (error) {
       console.error(error);
-      res.status(500).json({ 
+      res.status(500).json({
         error: error.message,
-        message: 'Lỗi khi lấy danh sách regions' 
+        message: "Lỗi khi lấy danh sách regions",
       });
     }
   }
@@ -19,18 +19,18 @@ class RoutesController {
   static async getAreas(req, res) {
     try {
       const { regionId } = req.params;
-      
+
       if (!regionId) {
-        return res.status(400).json({ error: 'regionId là bắt buộc' });
+        return res.status(400).json({ error: "regionId là bắt buộc" });
       }
 
       const areas = await RoutesService.getAreas(regionId);
       res.status(200).json(areas);
     } catch (error) {
       console.error(error);
-      res.status(500).json({ 
+      res.status(500).json({
         error: error.message,
-        message: 'Lỗi khi lấy danh sách areas' 
+        message: "Lỗi khi lấy danh sách areas",
       });
     }
   }
@@ -39,18 +39,18 @@ class RoutesController {
   static async getNpps(req, res) {
     try {
       const { areaId } = req.params;
-      
+
       if (!areaId) {
-        return res.status(400).json({ error: 'areaId là bắt buộc' });
+        return res.status(400).json({ error: "areaId là bắt buộc" });
       }
 
       const npps = await RoutesService.getNpps(areaId);
       res.status(200).json(npps);
     } catch (error) {
       console.error(error);
-      res.status(500).json({ 
+      res.status(500).json({
         error: error.message,
-        message: 'Lỗi khi lấy danh sách npps' 
+        message: "Lỗi khi lấy danh sách npps",
       });
     }
   }
@@ -59,18 +59,44 @@ class RoutesController {
   static async getRoutes(req, res) {
     try {
       const { nppId } = req.params;
-      
+
       if (!nppId) {
-        return res.status(400).json({ error: 'nppId là bắt buộc' });
+        return res.status(400).json({ error: "nppId là bắt buộc" });
       }
 
       const routes = await RoutesService.getRoutes(nppId);
       res.status(200).json(routes);
     } catch (error) {
       console.error(error);
-      res.status(500).json({ 
+      res.status(500).json({
         error: error.message,
-        message: 'Lỗi khi lấy danh sách routes' 
+        message: "Lỗi khi lấy danh sách routes",
+      });
+    }
+  }
+
+  static async getTableData(req, res) {
+    try {
+      const { routeId, year, month } = req.query;
+
+      if (!routeId || !year || !month) {
+        return res.status(400).json({
+          error: "routeId, year, và month là bắt buộc",
+        });
+      }
+
+      const tableData = await RoutesService.getTableData(
+        routeId,
+        parseInt(year),
+        parseInt(month)
+      );
+
+      res.status(200).json(tableData);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({
+        error: error.message,
+        message: "Lỗi khi lấy dữ liệu bảng",
       });
     }
   }

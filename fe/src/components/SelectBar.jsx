@@ -1,21 +1,25 @@
-
-
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 import NativeSelectDemo from "./NativeSelectDemo";
 import YearMonthPicker from "./YearMonthPicker";
 
-const API_BASE = 'http://localhost:5000/api';
+const API_BASE = "http://localhost:5000/api";
 
-function SelectBar() {
+function SelectBar({
+  selectedRoute,
+  setSelectedRoute,
+  selectedYear,
+  setSelectedYear,
+  selectedMonth,
+  setSelectedMonth,
+}) {
   const [regions, setRegions] = useState([]);
   const [areas, setAreas] = useState([]);
   const [npps, setNpps] = useState([]);
   const [routes, setRoutes] = useState([]);
 
-  const [selectedRegion, setSelectedRegion] = useState('');
-  const [selectedArea, setSelectedArea] = useState('');
-  const [selectedNpp, setSelectedNpp] = useState('');
-  const [selectedRoute, setSelectedRoute] = useState('');
+  const [selectedRegion, setSelectedRegion] = useState("");
+  const [selectedArea, setSelectedArea] = useState("");
+  const [selectedNpp, setSelectedNpp] = useState("");
 
   // Lấy danh sách Region khi component mount
   useEffect(() => {
@@ -26,8 +30,8 @@ function SelectBar() {
   useEffect(() => {
     if (selectedRegion) {
       fetchAreas(selectedRegion);
-      setSelectedArea('');
-      setSelectedNpp('');
+      setSelectedArea("");
+      setSelectedNpp("");
       setAreas([]);
       setNpps([]);
       setRoutes([]);
@@ -38,8 +42,8 @@ function SelectBar() {
   useEffect(() => {
     if (selectedArea) {
       fetchNpps(selectedArea);
-      setSelectedNpp('');
-      setSelectedRoute('');
+      setSelectedNpp("");
+      setSelectedRoute("");
       setNpps([]);
       setRoutes([]);
     }
@@ -61,7 +65,7 @@ function SelectBar() {
         setSelectedRegion(data[0].region_id);
       }
     } catch (error) {
-      console.error('Lỗi khi lấy regions:', error);
+      console.error("Lỗi khi lấy regions:", error);
     }
   };
 
@@ -74,7 +78,7 @@ function SelectBar() {
         setSelectedArea(data[0].area_id);
       }
     } catch (error) {
-      console.error('Lỗi khi lấy areas:', error);
+      console.error("Lỗi khi lấy areas:", error);
     }
   };
 
@@ -87,7 +91,7 @@ function SelectBar() {
         setSelectedNpp(data[0].npp_id);
       }
     } catch (error) {
-      console.error('Lỗi khi lấy npps:', error);
+      console.error("Lỗi khi lấy npps:", error);
     }
   };
 
@@ -100,10 +104,9 @@ function SelectBar() {
         setSelectedRoute(data[0].route_id);
       }
     } catch (error) {
-      console.error('Lỗi khi lấy routes:', error);
+      console.error("Lỗi khi lấy routes:", error);
     }
   };
-
   const regionOptions = regions.map((r) => ({
     value: r.region_id,
     label: r.region_name,
@@ -161,7 +164,12 @@ function SelectBar() {
         disabled={!selectedNpp}
       />
 
-      <YearMonthPicker />
+      <YearMonthPicker
+        selectedYear={selectedYear}
+        setSelectedYear={setSelectedYear}
+        selectedMonth={selectedMonth}
+        setSelectedMonth={setSelectedMonth}
+      />
     </div>
   );
 }

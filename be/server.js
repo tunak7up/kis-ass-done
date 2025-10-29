@@ -1,27 +1,10 @@
-const dbInstance = require("./api/sequelize/get-db-instance").getDbInstance();
-const { sequelize } = require('./api/sequelize/index');
-const { Content, Kpi, TotalDetail, Detail } = require('./api/sequelize/index');
-const { Sequelize, Op} = require('sequelize');
+const { Detail } = require("../api/sequelize/index");
+const dbInstance = require("../api/sequelize/get-db-instance").getDbInstance();
 
-async function test() {
-  const contents = await Content.findAndCountAll({
-    include: {
-      model: Kpi,
-      where: {
-        [Op.or]: [{kpi_id: 1}, {kpi_id: 2}]
-        
-      },
-      include: {
-        model: TotalDetail,
-        separate: true,
-        limit: 5,
-        include: {
-          model: Detail,
-          limit: 5
-        }
-      }
-    },
-  });
-  console.log(JSON.stringify(contents, null, 2));
+async function dropTable() {
+  await dbInstance.query("SET FOREIGN_KEY_CHECKS = 0");
+await dbInstance.query("TRUNCATE TABLE detail");
+await dbInstance.query("SET FOREIGN_KEY_CHECKS = 1");
+
 }
-test();
+dropTable();
